@@ -31,6 +31,8 @@ pub enum SubCommand {
     Open(OpenCommand),
     /// Close all positions in a CLOSED market.
     Quit(QuitCommand),
+    /// Retrieve the current margin for the trader
+    Margin(MarginCommand),
     /// Swap ETH or ERC-20 tokens on Velodrome for collateral tokens
     Swap(SwapCommand),
     /// Setup or edit the configuration settings of the app
@@ -167,4 +169,11 @@ pub struct CloseCommand {
 pub struct QuitCommand {
     /// Base token address to close positions for
     pub token: String,
+}
+
+#[derive(Debug, Args)]
+/// Retrieve the current margin for the trader
+pub struct MarginCommand {
+    /// The address of the trader
+    pub trader_address: Option<String>,
 }
