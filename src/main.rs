@@ -2,6 +2,7 @@ use clap::Parser;
 use eyre::Result;
 use perpcli_rs::{
     amm,
+    margin,
     args::{PerpArgs, SubCommand::*},
     close, config, deposit, open, portfolio, position, quit, swap, tokens, withdraw,
 };
@@ -26,6 +27,7 @@ async fn match_args(args: PerpArgs) -> Result<()> {
         Open(open_args) => open::process(open_args).await?,
         Close(close_args) => close::process(close_args).await?,
         Swap(swap_args) => swap::process(swap_args).await?,
+        Margin(margin_args) => margin::process_margin_command(margin_args).await?,
         Config(config_args) => {
             if config_args.rpc.expect("true/false") {
                 config::change_rpc()?;
